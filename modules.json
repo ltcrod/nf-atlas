@@ -1,0 +1,29 @@
+{
+    "name": "",
+    "homePage": "",
+    "repos": {
+        "nf-core/modules": {
+            "atlas/call": {
+                "git_sha": "7d0ddbc8abf45760e92276e6bb377c7b535baa95"
+            },
+            "atlas/pmd": {
+                "git_sha": "b6fe5d2643fdb0443136ceae0cb37a5ddec50443"
+            },
+            "atlas/recal": {
+                "git_sha": "c9dc0a82d0a5a1fa393264ea93ed5e0618051ffc"
+            },
+            "atlas/splitmerge": {
+                "git_sha": "8f199c4fa44d522194202d05d1e747759fdf9603"
+            },
+            "samtools/faidx": {
+                "git_sha": "ce06694af8ca2f7453206aa974c2c9a2b99ec093"
+            },
+            "samtools/index": {
+                "git_sha": "897c33d5da084b61109500ee44c01da2d3e4e773"
+            },
+            "samtools/view": {
+                "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
+            }
+        }
+    }
+}

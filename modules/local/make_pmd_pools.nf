@@ -1,0 +1,40 @@
+process MAKE_PMD_POOLS {
+        tag "$meta.id"
+    label 'process_low'
+
+    conda (params.enable_conda ? "bioconda::atlas=0.9.9" : null)
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/atlas:0.9.9--h082e891_0':
+        'quay.io/biocontainers/atlas:0.9.9--h082e891_0' }"
+
+    input:
+    tuple val(meta), path(bam)
+
+    output:
+    tuple val(meta), path("*.pmd_readgroups"), emit: data
+    path "versions.yml", emit: versions
+
+    when:
+    task.ext.when == null || task.ext.when
+
+    script:
+    def args = task.ext.args ?: ''
+    def prefix = task.ext.prefix ?: "${meta.id}"
+
+    """
+    samtools view \\
+    -H \\
+    $bam \\
+    | grep "@RG" \\
+    | cut -f 2 \\
+    | tr '\\n' '\\t' \\
+    | sed 's/ID\\://g' \\
+    > ${prefix}.pmd_readgroups
+
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        samtools: \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//')
+    END_VERSIONS
+    """
+}
